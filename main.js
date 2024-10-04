@@ -1,24 +1,41 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+// create an iframe element for every embedUrl
 
-setupCounter(document.querySelector('#counter'))
+async function getTopClips(clientId, authToken) {
+    try {
+      const response = await fetch("https://api.twitch.tv/helix/clips?game_id=509658&started_at=2024-10-03T16:36:58Z&ended_at=2024-10-04T16:36:58Z&is_featured=true", {
+        method: 'GET',
+        headers: {
+          'Client-Id': clientId,
+          'Authorization': 'Bearer ' + authToken
+        }
+      });
+      const clipsData = await response.json();
+      const embedUrls = clipsData.data.map((datum) => datum.embed_url)
+      //console.log(clipsData.data);
+      console.log(embedUrls);
+      //console.log(embedUrls[0])
+      const parentElement = document.body;
+
+      embedUrls.forEach((url) => {
+        const iframe = document.createElement('iframe');
+        iframe.src = url + "&parent=localhost";
+        iframe.height = 360;
+        iframe.width = 640;
+        iframe.frameBorder = 0;
+        iframe.allow = 'autoplay *; encrypted-media *;';
+        iframe.loading = 'lazy';
+        iframe.allowFullscreen = true;
+      
+        parentElement.appendChild(iframe);
+      });
+  
+      
+      return clipsData;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  
+  const data = getTopClips(clientId, authToken)
+  
