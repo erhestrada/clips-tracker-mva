@@ -18,6 +18,7 @@ async function getTopClips(clientId, authToken) {
       const clipsData = await response.json();
       
       const embedUrls = clipsData.data.map((datum) => datum.embed_url)
+      console.log(embedUrls[0])
       const thumbnailUrls = clipsData.data.map((datum) => datum.thumbnail_url)
       const titles = clipsData.data.map((datum) => datum.title)
       const languages = clipsData.data.map((datum) => datum.language)
