@@ -11,13 +11,17 @@ async function getTopClips(clientId, authToken) {
         }
       });
       const clipsData = await response.json();
+      
       const embedUrls = clipsData.data.map((datum) => datum.embed_url)
+      const thumbnailUrls = clipsData.data.map((datum) => datum.thumbnail_url)
+      const titles = clipsData.data.map((datum) => datum.title)
       //console.log(clipsData.data);
       console.log(embedUrls);
+      console.log(titles);
       //console.log(embedUrls[0])
       const parentElement = document.body;
 
-      embedUrls.forEach((url) => {
+      thumbnailUrls.forEach((url, index) => {
         const iframe = document.createElement('iframe');
         iframe.src = url + "&parent=localhost";
         iframe.height = 360;
@@ -26,8 +30,15 @@ async function getTopClips(clientId, authToken) {
         iframe.allow = 'autoplay *; encrypted-media *;';
         iframe.loading = 'lazy';
         iframe.allowFullscreen = true;
+
+        const titleElement = document.createElement('p');
+        titleElement.textContent = titles[index];
+        
+        const imageContainer = document.createElement('div');
+        imageContainer.appendChild(iframe);
+        imageContainer.appendChild(titleElement);
       
-        parentElement.appendChild(iframe);
+        parentElement.appendChild(imageContainer);
       });
   
       
