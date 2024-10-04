@@ -1,9 +1,7 @@
 
-// create an iframe element for every embedUrl
-
-function thumbnailClickListener() {
+function thumbnailClickListener(index) {
     console.log("thumbnail clicked")
-    window.location.href = "test.html"
+    window.location.href = "test.html?" + index;
 }
 
 async function getTopClips(clientId, authToken) {
@@ -44,7 +42,7 @@ async function getTopClips(clientId, authToken) {
             const titleElement = document.createElement('p');
             titleElement.textContent = titles[index];
             //titleElement.addEventListener('click', () => console.log("clicked"));
-            titleElement.addEventListener('click', thumbnailClickListener);
+            titleElement.addEventListener('click', () => {thumbnailClickListener(index)});
 
             const imageContainer = document.createElement('div');
             imageContainer.appendChild(iframe);
