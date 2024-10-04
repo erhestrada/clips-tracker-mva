@@ -3,6 +3,7 @@
 
 function thumbnailClickListener() {
     console.log("thumbnail clicked")
+    window.location.href = "test.html"
 }
 
 async function getTopClips(clientId, authToken) {
