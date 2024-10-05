@@ -13,7 +13,9 @@ async function displayClip(clientId, authToken) {
       const paramValue = urlParams.get('index');
       console.log(paramValue);
       
-      const embedUrls = clipsData.data.map((datum) => datum.embed_url)
+      //const embedUrls = clipsData.data.map((datum) => datum.embed_url)
+      const embedUrls = JSON.parse(localStorage.getItem("embedUrls"));
+      console.log(embedUrls);
       const embedUrl = embedUrls[paramValue];
 
       const iframe = document.createElement('iframe');

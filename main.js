@@ -1,21 +1,6 @@
 
 function thumbnailClickListener(index) {
-    console.log("thumbnail clicked")
     window.location.href = "test.html?" + "index=" + index;
-
-    /*
-    const paragraph = document.createElement('p');
-    paragraph.textContent = "DOES THIS WORK???";
-
-    const iframe = document.createElement('iframe');
-    iframe.src = localStorage.getItem(index) + "&parent=localhost";
-    iframe.height = 360;
-    iframe.width = 640;
-    iframe.frameBorder = 0;
-    iframe.allowFullscreen = true;
-  
-    document.body.appendChild(paragraph);
-    */
 }
 
 async function getTopClips(clientId, authToken) {
@@ -30,6 +15,7 @@ async function getTopClips(clientId, authToken) {
       const clipsData = await response.json();
       
       const embedUrls = clipsData.data.map((datum) => datum.embed_url)
+      localStorage.setItem("embedUrls", JSON.stringify(embedUrls));
       embedUrls.forEach((element, index) => {localStorage.setItem(index, element)})
       console.log(embedUrls[0])
       const thumbnailUrls = clipsData.data.map((datum) => datum.thumbnail_url)
