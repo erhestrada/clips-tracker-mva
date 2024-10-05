@@ -1,7 +1,7 @@
 
 function thumbnailClickListener(index) {
     console.log("thumbnail clicked")
-    window.location.href = "test.html?" + index;
+    window.location.href = "test.html?" + "index=" + index;
 
     /*
     const paragraph = document.createElement('p');

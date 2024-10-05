@@ -8,14 +8,23 @@ async function displayClip(clientId, authToken) {
         }
       });
       const clipsData = await response.json();
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const paramValue = urlParams.get('index');
+      console.log(paramValue);
       
       const embedUrls = clipsData.data.map((datum) => datum.embed_url)
-      
-      const parentElement = document.body;
-      const paragraph = document.createElement('p');
-      paragraph.textContent = "DOES THIS WORK???";
-      document.body.appendChild(paragraph);
-      
+      const embedUrl = embedUrls[paramValue];
+
+      const iframe = document.createElement('iframe');
+      iframe.src = embedUrl + "&parent=localhost&autoplay=true";
+      iframe.height = 360;
+      iframe.width = 640;
+      iframe.frameBorder = 0;
+      iframe.allowFullscreen = true;
+    
+      document.body.appendChild(iframe);
+            
       return clipsData;
     } catch (error) {
       console.error(error);
