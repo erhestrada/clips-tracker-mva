@@ -27,3 +27,14 @@ p {
 h1 {
   cursor: pointer;
 }
+
+.thumbnails-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Creates 3 equal-width columns */
+  gap: 20px; /* Adds space between grid items */
+}
+
+.image-container {
+  background-color: rgb(31, 31, 31);
+  padding: 20px;
+}

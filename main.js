@@ -49,6 +49,7 @@ async function getTopClips(clientId, authToken) {
       //const parentElement = document.body;
 
       const thumbnailsContainer = document.createElement('div');
+      thumbnailsContainer.className = "thumbnails-container";
       document.body.appendChild(thumbnailsContainer);
 
       const parentElement = thumbnailsContainer;
@@ -63,6 +64,7 @@ async function getTopClips(clientId, authToken) {
             thumbnail.allow = 'autoplay *; encrypted-media *;';
             thumbnail.loading = 'lazy';
             thumbnail.allowFullscreen = true;
+            thumbnail.className = "thumbnail";
             //thumbnail.onclick = () => {console.log("clicked")};
             thumbnail.addEventListener('click', () => {thumbnailClickListener(index)});
     
