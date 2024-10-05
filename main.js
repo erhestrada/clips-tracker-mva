@@ -72,8 +72,8 @@ async function getTopClips(clientId, authToken) {
             viewCountElement.textContent = viewCounts[index] + " views";
 
             const imageContainer = document.createElement('div');
-            imageContainer.appendChild(thumbnail);
             imageContainer.appendChild(titleElement);
+            imageContainer.appendChild(thumbnail);
             imageContainer.appendChild(viewCountElement);
             imageContainer.className = "image-container";
           
