@@ -43,6 +43,7 @@ async function getTopClips(clientId, authToken) {
       const thumbnailUrls = clipsData.data.map((datum) => datum.thumbnail_url)
       const titles = clipsData.data.map((datum) => datum.title)
       const languages = clipsData.data.map((datum) => datum.language)
+      const viewCounts = clipsData.data.map((datum) => datum.view_count)
       console.log(clipsData.data);
       //console.log(embedUrls);
       //console.log(titles);
@@ -67,9 +68,13 @@ async function getTopClips(clientId, authToken) {
             //titleElement.addEventListener('click', () => console.log("clicked"));
             titleElement.addEventListener('click', () => {thumbnailClickListener(index)});
 
+            const viewCountElement = document.createElement('p');
+            viewCountElement.textContent = viewCounts[index] + " views";
+
             const imageContainer = document.createElement('div');
             imageContainer.appendChild(iframe);
             imageContainer.appendChild(titleElement);
+            imageContainer.appendChild(viewCountElement);
           
             parentElement.appendChild(imageContainer);
         }
