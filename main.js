@@ -73,7 +73,7 @@ async function getTopClips(clientId, authToken) {
             //titleElement.addEventListener('click', () => {thumbnailClickListener(index)});
 
             const viewCountElement = document.createElement('p');
-            viewCountElement.textContent = viewCounts[index] + " views";
+            viewCountElement.textContent = viewCounts[index].toLocaleString() + " views";
 
             const thumbnailCard = document.createElement('div');
             thumbnailCard.appendChild(titleElement);
