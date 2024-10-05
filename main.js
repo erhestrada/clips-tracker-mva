@@ -45,10 +45,13 @@ async function getTopClips(clientId, authToken) {
       const languages = clipsData.data.map((datum) => datum.language)
       const viewCounts = clipsData.data.map((datum) => datum.view_count)
       console.log(clipsData.data);
-      //console.log(embedUrls);
-      //console.log(titles);
-      //console.log(embedUrls[0])
-      const parentElement = document.body;
+
+      //const parentElement = document.body;
+
+      const thumbnailsContainer = document.createElement('div');
+      document.body.appendChild(thumbnailsContainer);
+
+      const parentElement = thumbnailsContainer;
 
       thumbnailUrls.forEach((url, index) => {
         if(languages[index] === 'en') {
