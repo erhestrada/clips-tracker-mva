@@ -52,7 +52,7 @@ async function getTopClips(clientId, authToken) {
 
       thumbnailUrls.forEach((url, index) => {
         if(languages[index] === 'en') {
-            const iframe = document.createElement('iframe');
+            const iframe = document.createElement('img');
             iframe.src = url + "&parent=localhost";
             iframe.height = 360;
             iframe.width = 640;
@@ -75,6 +75,7 @@ async function getTopClips(clientId, authToken) {
             imageContainer.appendChild(iframe);
             imageContainer.appendChild(titleElement);
             imageContainer.appendChild(viewCountElement);
+            imageContainer.className = "image-container";
           
             parentElement.appendChild(imageContainer);
         }

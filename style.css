@@ -2,11 +2,13 @@ div {
   text-align: center;
 }
 
-iframe {
+img {
   margin-left: auto;
   margin-right: auto;
   display: block;
   border: 0;
+  overflow-y: hidden;
+  overflow-x: hidden;
 }
 
 body {
@@ -17,4 +19,5 @@ body {
 p {
   display: inline;
   text-align: center;
+  margin-right: 10px;
 }
