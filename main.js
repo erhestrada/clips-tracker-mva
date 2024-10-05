@@ -76,13 +76,13 @@ async function getTopClips(clientId, authToken) {
             const viewCountElement = document.createElement('p');
             viewCountElement.textContent = viewCounts[index] + " views";
 
-            const imageContainer = document.createElement('div');
-            imageContainer.appendChild(titleElement);
-            imageContainer.appendChild(thumbnail);
-            imageContainer.appendChild(viewCountElement);
-            imageContainer.className = "image-container";
+            const thumbnailCard = document.createElement('div');
+            thumbnailCard.appendChild(titleElement);
+            thumbnailCard.appendChild(thumbnail);
+            thumbnailCard.appendChild(viewCountElement);
+            thumbnailCard.className = "thumbnail-card";
           
-            parentElement.appendChild(imageContainer);
+            parentElement.appendChild(thumbnailCard);
         }
 
       });
