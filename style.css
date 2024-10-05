@@ -9,6 +9,7 @@ img {
   border: 0;
   overflow-y: hidden;
   overflow-x: hidden;
+  cursor: pointer;
 }
 
 body {

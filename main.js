@@ -52,27 +52,27 @@ async function getTopClips(clientId, authToken) {
 
       thumbnailUrls.forEach((url, index) => {
         if(languages[index] === 'en') {
-            const iframe = document.createElement('img');
-            iframe.src = url + "&parent=localhost";
-            iframe.height = 360;
-            iframe.width = 640;
-            iframe.frameBorder = 0;
-            iframe.allow = 'autoplay *; encrypted-media *;';
-            iframe.loading = 'lazy';
-            iframe.allowFullscreen = true;
-            //iframe.onclick = () => {console.log("clicked")};
-            //iframe.addEventListener('click', thumbnailClickListener);
+            const thumbnail = document.createElement('img');
+            thumbnail.src = url + "&parent=localhost";
+            thumbnail.height = 360;
+            thumbnail.width = 640;
+            thumbnail.frameBorder = 0;
+            thumbnail.allow = 'autoplay *; encrypted-media *;';
+            thumbnail.loading = 'lazy';
+            thumbnail.allowFullscreen = true;
+            //thumbnail.onclick = () => {console.log("clicked")};
+            thumbnail.addEventListener('click', () => {thumbnailClickListener(index)});
     
             const titleElement = document.createElement('p');
             titleElement.textContent = titles[index];
             //titleElement.addEventListener('click', () => console.log("clicked"));
-            titleElement.addEventListener('click', () => {thumbnailClickListener(index)});
+            //titleElement.addEventListener('click', () => {thumbnailClickListener(index)});
 
             const viewCountElement = document.createElement('p');
             viewCountElement.textContent = viewCounts[index] + " views";
 
             const imageContainer = document.createElement('div');
-            imageContainer.appendChild(iframe);
+            imageContainer.appendChild(thumbnail);
             imageContainer.appendChild(titleElement);
             imageContainer.appendChild(viewCountElement);
             imageContainer.className = "image-container";
