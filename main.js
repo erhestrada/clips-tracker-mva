@@ -3,9 +3,32 @@ function thumbnailClickListener(index) {
     window.location.href = "test.html?" + "index=" + index;
 }
 
+function makeGetUrl() {
+  const currentDateTime = getCurrentDateTime();
+  const yesterdayDateTime = getPastDateTime(1);
+  return "https://api.twitch.tv/helix/clips?game_id=509658&started_at=" + yesterdayDateTime + "&ended_at=" + currentDateTime + "&is_featured=true";
+
+}
+
+function getCurrentDateTime() {
+  const dateTime = new Date();
+  const rfcDateTime = dateTime.toISOString();
+  return rfcDateTime;
+}
+
+function getPastDateTime(daysBack) {
+  const hoursBack = daysBack * 24;
+  const dateTime = new Date();
+  const pastDateTime = new Date(dateTime.getTime() - hoursBack * 60 * 60 * 1000);
+  const pastRfcDateTime = pastDateTime.toISOString();
+  return pastRfcDateTime;
+}
+
 async function getTopClips(clientId, authToken) {
     try {
-      const response = await fetch("https://api.twitch.tv/helix/clips?game_id=509658&started_at=2024-10-03T16:36:58Z&ended_at=2024-10-04T16:36:58Z&is_featured=true", {
+      const getUrl = makeGetUrl();
+      console.log(getUrl);
+      const response = await fetch(makeGetUrl(), {
         method: 'GET',
         headers: {
           'Client-Id': clientId,
@@ -17,7 +40,6 @@ async function getTopClips(clientId, authToken) {
       const embedUrls = clipsData.data.map((datum) => datum.embed_url)
       localStorage.setItem("embedUrls", JSON.stringify(embedUrls));
       embedUrls.forEach((element, index) => {localStorage.setItem(index, element)})
-      console.log(embedUrls[0])
       const thumbnailUrls = clipsData.data.map((datum) => datum.thumbnail_url)
       const titles = clipsData.data.map((datum) => datum.title)
       const languages = clipsData.data.map((datum) => datum.language)
