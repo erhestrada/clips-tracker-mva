@@ -3,18 +3,6 @@ div {
   margin: 1rem;
 }
 
-img {
-  margin-left: 0;
-  margin-right: 0;
-  display: block;
-  border: 0;
-  overflow-y: hidden;
-  overflow-x: hidden;
-  cursor: pointer;
-  width: 75%; /* adjust to desired percentage */
-  height: auto;
-}
-
 body {
   background-color: rgb(31, 31, 31);
   color: white;
@@ -30,10 +18,16 @@ h1 {
   cursor: pointer;
 }
 
-.thumbnails-container {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr); /* Creates 3 equal-width columns */
-  gap: 20px; /* Adds space between grid items */
+.thumbnail {
+  margin-left: 0;
+  margin-right: 0;
+  display: block;
+  border: 0;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  cursor: pointer;
+  width: 85%; /* adjust to desired percentage */
+  height: auto;
 }
 
 .thumbnail-card {
@@ -41,3 +35,10 @@ h1 {
   padding: 0px;
   margin: 0px;
 }
+
+.thumbnail-cards-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* Creates 3 equal-width columns */
+  gap: 0px; /* Adds space between grid items */
+}
+

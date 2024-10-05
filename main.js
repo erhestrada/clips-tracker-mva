@@ -48,11 +48,10 @@ async function getTopClips(clientId, authToken) {
 
       //const parentElement = document.body;
 
-      const thumbnailsContainer = document.createElement('div');
-      thumbnailsContainer.className = "thumbnails-container";
-      document.body.appendChild(thumbnailsContainer);
-
-      const parentElement = thumbnailsContainer;
+      const thumbnailCardsContainer = document.createElement('div');
+      thumbnailCardsContainer.className = "thumbnail-cards-container";
+      document.body.appendChild(thumbnailCardsContainer);
+      const parentElement = thumbnailCardsContainer;
 
       thumbnailUrls.forEach((url, index) => {
         if(languages[index] === 'en') {
