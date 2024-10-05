@@ -5,8 +5,8 @@ function thumbnailClickListener(index) {
 
 function makeGetUrl() {
   const currentDateTime = getCurrentDateTime();
-  const yesterdayDateTime = getPastDateTime(1);
-  return "https://api.twitch.tv/helix/clips?game_id=509658&started_at=" + yesterdayDateTime + "&ended_at=" + currentDateTime + "&is_featured=true";
+  const yesterdayDateTime = getPastDateTime(3);
+  return "https://api.twitch.tv/helix/clips?game_id=509658&started_at=" + yesterdayDateTime + "&ended_at=" + currentDateTime + "&is_featured=false" + "&first=100";
 
 }
 
