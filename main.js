@@ -89,5 +89,9 @@ async function getTopClips(clientId, authToken) {
     }
   }
   
-  const data = getTopClips(clientId, authToken)
-  
+const data = getTopClips(clientId, authToken)
+const heading = document.querySelector('h1');
+
+heading.addEventListener('click', () => {
+    window.location.href = "index.html";
+});

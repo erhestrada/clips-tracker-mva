@@ -18,5 +18,11 @@ function displayClip(clientId, authToken) {
       document.body.appendChild(iframe);        
   }
   
-  const data = displayClip(clientId, authToken)
+const data = displayClip(clientId, authToken)
+
+const heading = document.querySelector('h1');
+
+heading.addEventListener('click', () => {
+    window.location.href = "index.html";
+});
   
