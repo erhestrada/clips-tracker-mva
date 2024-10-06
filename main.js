@@ -99,15 +99,19 @@ for (const timeFrameButton of timeFrameButtons) {
   timeFrameButton.addEventListener('click', () => {
     const element = document.getElementById("thumbnail-cards-container");
     element.remove();
-    getTopClips(clientId, authToken, 30)});
-}
-
-console.log([...timeFrameButtons].map((button) => button.textContent));
-
-function getPastDateTimeFromButton(daysBack) {
-  const hoursBack = daysBack * 24;
-  const dateTime = new Date();
-  const pastDateTime = new Date(dateTime.getTime() - hoursBack * 60 * 60 * 1000);
-  const pastRfcDateTime = pastDateTime.toISOString();
-  return pastRfcDateTime;
+    const timeFrameText = timeFrameButton.textContent;
+    
+    switch(timeFrameText) {
+      case "24H":
+        getTopClips(clientId, authToken, 1);
+      case "7D":
+        getTopClips(clientId, authToken, 7);
+      case "30D":
+        getTopClips(clientId, authToken, 30);
+      case "ALL":
+        // what should daysBack be?
+        getTopClips(clientId, authToken, 300);
+    }
+    
+  })
 }
