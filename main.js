@@ -1,19 +1,19 @@
 gameToIdConverter = {
-  "IRL": "494717",
+  "IRL": "509672",
   "Just Chatting": "509658",
   "World of Warcraft": "18122",
   "League of Legends": "21779",
 }
 
-
 function thumbnailClickListener(index) {
     window.location.href = "test.html?" + "index=" + index;
 }
 
-function makeGetUrl(daysBack) {
+function makeGetUrl(game, daysBack) {
+  const gameId = gameToIdConverter[game];
   const currentDateTime = getCurrentDateTime();
   const pastDateTime = getPastDateTime(daysBack);
-  return "https://api.twitch.tv/helix/clips?game_id=509658&started_at=" + pastDateTime + "&ended_at=" + currentDateTime + "&is_featured=false" + "&first=100";
+  return "https://api.twitch.tv/helix/clips?game_id=" + gameId + "&started_at=" + pastDateTime + "&ended_at=" + currentDateTime + "&is_featured=false" + "&first=100";
 
 }
 
@@ -38,7 +38,7 @@ function clearThumbnailCardsContainer() {
 
 async function getTopClips(clientId, authToken, game, daysBack) {
     try {
-      const response = await fetch(makeGetUrl(daysBack), {
+      const response = await fetch(makeGetUrl(game, daysBack), {
         method: 'GET',
         headers: {
           'Client-Id': clientId,
