@@ -45,6 +45,7 @@ async function getTopClips(clientId, authToken, daysBack) {
 
       const thumbnailCardsContainer = document.createElement('div');
       thumbnailCardsContainer.className = "thumbnail-cards-container";
+      thumbnailCardsContainer.id = "thumbnail-cards-container";
       document.body.appendChild(thumbnailCardsContainer);
       const parentElement = thumbnailCardsContainer;
 
@@ -96,9 +97,8 @@ const timeFrameButtons = document.querySelectorAll('.timeframe-button');
 
 for (const timeFrameButton of timeFrameButtons) {
   timeFrameButton.addEventListener('click', () => {
-    //location.reload();
-    document.body.innerHTML = '';
-    //document.body.thumbnailCardsContainer = '';
+    const element = document.getElementById("thumbnail-cards-container");
+    element.remove();
     getTopClips(clientId, authToken, 30)});
 }
 
