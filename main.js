@@ -100,20 +100,13 @@ for (const timeFrameButton of timeFrameButtons) {
     const element = document.getElementById("thumbnail-cards-container");
     element.remove();
     const timeFrameText = timeFrameButton.textContent;
-    
-    switch(timeFrameText) {
-      case "24H":
-        getTopClips(clientId, authToken, 1);
-        break;
-      case "7D":
-        getTopClips(clientId, authToken, 7);
-        break;
-      case "30D":
-        getTopClips(clientId, authToken, 30);
-        break;
-      case "ALL":
-        getTopClips(clientId, authToken, 300);
+    const timeFrameTextToDaysBackConverter = {
+      "24H": 1,
+      "7D": 7,
+      "30D": 30,
+      "ALL": 300
     }
+    getTopClips(clientId, authToken, timeFrameTextToDaysBackConverter [timeFrameText]);
     
   })
 }
