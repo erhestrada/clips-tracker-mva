@@ -3,10 +3,10 @@ function thumbnailClickListener(index) {
     window.location.href = "test.html?" + "index=" + index;
 }
 
-function makeGetUrl() {
+function makeGetUrl(daysBack) {
   const currentDateTime = getCurrentDateTime();
-  const yesterdayDateTime = getPastDateTime(3);
-  return "https://api.twitch.tv/helix/clips?game_id=509658&started_at=" + yesterdayDateTime + "&ended_at=" + currentDateTime + "&is_featured=false" + "&first=100";
+  const pastDateTime = getPastDateTime(daysBack);
+  return "https://api.twitch.tv/helix/clips?game_id=509658&started_at=" + pastDateTime + "&ended_at=" + currentDateTime + "&is_featured=false" + "&first=100";
 
 }
 
@@ -24,11 +24,9 @@ function getPastDateTime(daysBack) {
   return pastRfcDateTime;
 }
 
-async function getTopClips(clientId, authToken) {
+async function getTopClips(clientId, authToken, daysBack) {
     try {
-      const getUrl = makeGetUrl();
-      console.log(getUrl);
-      const response = await fetch(makeGetUrl(), {
+      const response = await fetch(makeGetUrl(daysBack), {
         method: 'GET',
         headers: {
           'Client-Id': clientId,
@@ -44,9 +42,6 @@ async function getTopClips(clientId, authToken) {
       const titles = clipsData.data.map((datum) => datum.title)
       const languages = clipsData.data.map((datum) => datum.language)
       const viewCounts = clipsData.data.map((datum) => datum.view_count)
-      console.log(clipsData.data);
-
-      //const parentElement = document.body;
 
       const thumbnailCardsContainer = document.createElement('div');
       thumbnailCardsContainer.className = "thumbnail-cards-container";
@@ -64,13 +59,10 @@ async function getTopClips(clientId, authToken) {
             thumbnail.loading = 'lazy';
             thumbnail.allowFullscreen = true;
             thumbnail.className = "thumbnail";
-            //thumbnail.onclick = () => {console.log("clicked")};
             thumbnail.addEventListener('click', () => {thumbnailClickListener(index)});
     
             const titleElement = document.createElement('p');
             titleElement.textContent = titles[index];
-            //titleElement.addEventListener('click', () => console.log("clicked"));
-            //titleElement.addEventListener('click', () => {thumbnailClickListener(index)});
 
             const viewCountElement = document.createElement('p');
             viewCountElement.textContent = viewCounts[index].toLocaleString() + " views";
@@ -82,20 +74,40 @@ async function getTopClips(clientId, authToken) {
             thumbnailCard.className = "thumbnail-card";
           
             parentElement.appendChild(thumbnailCard);
+            console.log("yo");
         }
 
       });
   
-      
       return clipsData;
     } catch (error) {
       console.error(error);
     }
   }
   
-const data = getTopClips(clientId, authToken)
-const heading = document.querySelector('h1');
+const data = getTopClips(clientId, authToken, 3)
 
+const heading = document.querySelector('h1');
 heading.addEventListener('click', () => {
     window.location.href = "index.html";
 });
+
+const timeFrameButtons = document.querySelectorAll('.timeframe-button');
+
+for (const timeFrameButton of timeFrameButtons) {
+  timeFrameButton.addEventListener('click', () => {
+    //location.reload();
+    document.body.innerHTML = '';
+    //document.body.thumbnailCardsContainer = '';
+    getTopClips(clientId, authToken, 30)});
+}
+
+console.log([...timeFrameButtons].map((button) => button.textContent));
+
+function getPastDateTimeFromButton(daysBack) {
+  const hoursBack = daysBack * 24;
+  const dateTime = new Date();
+  const pastDateTime = new Date(dateTime.getTime() - hoursBack * 60 * 60 * 1000);
+  const pastRfcDateTime = pastDateTime.toISOString();
+  return pastRfcDateTime;
+}
