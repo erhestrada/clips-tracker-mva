@@ -104,12 +104,14 @@ for (const timeFrameButton of timeFrameButtons) {
     switch(timeFrameText) {
       case "24H":
         getTopClips(clientId, authToken, 1);
+        break;
       case "7D":
         getTopClips(clientId, authToken, 7);
+        break;
       case "30D":
         getTopClips(clientId, authToken, 30);
+        break;
       case "ALL":
-        // what should daysBack be?
         getTopClips(clientId, authToken, 300);
     }
     
