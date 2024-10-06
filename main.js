@@ -1,8 +1,26 @@
+// TODO
+// 1. more gametoidconverter
+// 2. refactor into class? to add state, start with just global variables?
+// 3.1 clip player - popup? slider on top?
+// 3.2 comments section
+// 4.1 profiles
+// 4.2 likes, dislikes
+// 4.3 follows (channels, clippers), notifications
+
 gameToIdConverter = {
   "IRL": "509672",
   "Just Chatting": "509658",
   "World of Warcraft": "18122",
   "League of Legends": "21779",
+  "Grand Theft Auto V": "32982",
+  "Valorant": "516575",
+  "EA Sports FC 25": "2011938005",
+  "Minecraft": "27471",
+  "Throne and Liberty": "19801",
+  "Fortnite": "33214",
+  "Counter-Strike": "32399",
+  "World of Warcraft": "18122",
+  "Twitch All categories / multiple categories": "509658"
 }
 
 function thumbnailClickListener(index) {
