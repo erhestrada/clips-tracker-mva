@@ -1,3 +1,10 @@
+gameToIdConverter = {
+  "IRL": "494717",
+  "Just Chatting": "509658",
+  "World of Warcraft": "18122",
+  "League of Legends": "21779",
+}
+
 
 function thumbnailClickListener(index) {
     window.location.href = "test.html?" + "index=" + index;
@@ -24,7 +31,12 @@ function getPastDateTime(daysBack) {
   return pastRfcDateTime;
 }
 
-async function getTopClips(clientId, authToken, daysBack) {
+function clearThumbnailCardsContainer() {
+  const element = document.getElementById("thumbnail-cards-container");
+  element.remove();
+}
+
+async function getTopClips(clientId, authToken, game, daysBack) {
     try {
       const response = await fetch(makeGetUrl(daysBack), {
         method: 'GET',
@@ -86,19 +98,11 @@ async function getTopClips(clientId, authToken, daysBack) {
     }
   }
   
-const data = getTopClips(clientId, authToken, 3)
-
-const heading = document.querySelector('h1');
-heading.addEventListener('click', () => {
-    window.location.href = "index.html";
-});
-
 const timeFrameButtons = document.querySelectorAll('.timeframe-button');
 
 for (const timeFrameButton of timeFrameButtons) {
   timeFrameButton.addEventListener('click', () => {
-    const element = document.getElementById("thumbnail-cards-container");
-    element.remove();
+    clearThumbnailCardsContainer();
     const timeFrameText = timeFrameButton.textContent;
     const timeFrameTextToDaysBackConverter = {
       "24H": 1,
@@ -106,7 +110,23 @@ for (const timeFrameButton of timeFrameButtons) {
       "30D": 30,
       "ALL": 300
     }
-    getTopClips(clientId, authToken, timeFrameTextToDaysBackConverter [timeFrameText]);
+    getTopClips(clientId, authToken, "Just Chatting", timeFrameTextToDaysBackConverter[timeFrameText]);
     
   })
 }
+
+const categoriesDropDownMenu = document.getElementById('categories-dropdown-menu');
+
+categoriesDropDownMenu.addEventListener('change', () => {
+  clearThumbnailCardsContainer();
+  const game = categoriesDropDownMenu.options[categoriesDropDownMenu.selectedIndex].text;
+  //console.log(selectedText);
+  getTopClips(clientId, authToken, game, 7);
+});
+
+const heading = document.querySelector('h1');
+heading.addEventListener('click', () => {
+    window.location.href = "index.html";
+});
+
+const data = getTopClips(clientId, authToken, "Just Chatting", 3)
