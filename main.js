@@ -1,6 +1,7 @@
 // TODO
-// 1. more gametoidconverter
-// 2. refactor into class to add state, start with just global variables (for the getUrl)
+// 1. more gametoidconverter | o
+// 2. refactor into class to add state, start with just global variables (for the getUrl) | o
+// add mor information to card
 // 3.1 clip player - popup? slider on top?
 // 3.2 comments section
 // 4.1 profiles
@@ -67,7 +68,7 @@ async function getTopClips(clientId, authToken, game, daysBack) {
         }
       });
       const clipsData = await response.json();
-      
+      console.log(clipsData['data'][0])
       const embedUrls = clipsData.data.map((datum) => datum.embed_url)
       localStorage.setItem("embedUrls", JSON.stringify(embedUrls));
       embedUrls.forEach((element, index) => {localStorage.setItem(index, element)})
@@ -75,6 +76,7 @@ async function getTopClips(clientId, authToken, game, daysBack) {
       const titles = clipsData.data.map((datum) => datum.title)
       const languages = clipsData.data.map((datum) => datum.language)
       const viewCounts = clipsData.data.map((datum) => datum.view_count)
+      const streamers = clipsData.data.map((datum) => datum.broadcaster_name)
 
       const thumbnailCardsContainer = document.createElement('div');
       thumbnailCardsContainer.className = "thumbnail-cards-container";
@@ -98,12 +100,16 @@ async function getTopClips(clientId, authToken, game, daysBack) {
             const titleElement = document.createElement('p');
             titleElement.textContent = titles[index];
 
+            const streamerElement = document.createElement('p');
+            streamerElement.textContent = streamers[index];
+
             const viewCountElement = document.createElement('p');
             viewCountElement.textContent = viewCounts[index].toLocaleString() + " views";
 
             const thumbnailCard = document.createElement('div');
             thumbnailCard.appendChild(titleElement);
             thumbnailCard.appendChild(thumbnail);
+            thumbnailCard.appendChild(streamerElement);
             thumbnailCard.appendChild(viewCountElement);
             thumbnailCard.className = "thumbnail-card";
           
