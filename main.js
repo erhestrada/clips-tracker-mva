@@ -46,11 +46,17 @@ function thumbnailClickListener(index, embedUrls) {
     iframe.frameBorder = 0;
     iframe.allowFullscreen = true;
 
-    const icon = document.createElement('i')
-    icon.className = "fa-solid fa-arrow-right"
+    const leftArrow = document.createElement('i');
+    leftArrow.className = "fa-solid fa-angle-left";
+    leftArrow.id = "left-arrow";
 
+    const rightArrow = document.createElement('i');
+    rightArrow.className = "fa-solid fa-angle-right";
+    rightArrow.id = "right-arrow";
+
+    clipPlayer.appendChild(leftArrow);
     clipPlayer.appendChild(iframe); 
-    clipPlayer.appendChild(icon);
+    clipPlayer.appendChild(rightArrow);
 }
 
 function makeGetUrl(game, daysBack) {

@@ -43,3 +43,8 @@ h1 {
   gap: 0px; /* Adds space between grid items */
 }
 
+.clip-player {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
