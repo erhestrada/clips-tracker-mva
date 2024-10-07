@@ -1,7 +1,7 @@
 // TODO
 // 1. more gametoidconverter | o
 // 2. refactor into class to add state, start with just global variables (for the getUrl) | o
-// add mor information to card
+// need to get streamer image for card
 // 3.1 clip player - popup? slider on top?
 // 3.2 comments section
 // 4.1 profiles
@@ -27,8 +27,22 @@ gameToIdConverter = {
 globalGame = "Just Chatting"
 globalDaysBack = 1
 
-function thumbnailClickListener(index) {
-    window.location.href = "test.html?" + "index=" + index;
+function thumbnailClickListener(index, embedUrls) {
+    //const embedUrls = JSON.parse(localStorage.getItem("embedUrls"));
+    const embedUrl = embedUrls[index];
+
+    const clipPlayer = document.getElementById('clip-player');
+    // make sure there's no iframe when creating new one
+    clipPlayer.innerHTML = '';
+
+    const iframe = document.createElement('iframe');
+    iframe.src = embedUrl + "&parent=localhost&autoplay=true";
+    iframe.height = 360;
+    iframe.width = 640;
+    iframe.frameBorder = 0;
+    iframe.allowFullscreen = true;
+  
+    clipPlayer.appendChild(iframe); 
 }
 
 function makeGetUrl(game, daysBack) {
@@ -97,7 +111,7 @@ async function getTopClips(clientId, authToken, game, daysBack) {
             thumbnail.loading = 'lazy';
             thumbnail.allowFullscreen = true;
             thumbnail.className = "thumbnail";
-            thumbnail.addEventListener('click', () => {thumbnailClickListener(index)});
+            thumbnail.addEventListener('click', () => {thumbnailClickListener(index, embedUrls)});
     
             const titleElement = document.createElement('p');
             titleElement.textContent = titles[index];
@@ -109,7 +123,7 @@ async function getTopClips(clientId, authToken, game, daysBack) {
             viewCountElement.textContent = viewCounts[index].toLocaleString() + " views";
 
             const durationElement = document.createElement('p');
-            durationElement.textContent = durations[index] + 's';
+            durationElement.textContent = Math.round(durations[index]) + 's';
 
             const creationDateTimeElement = document.createElement('p');
             creationDateTimeElement.textContent = creationDateTimes[index];
