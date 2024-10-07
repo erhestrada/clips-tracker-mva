@@ -68,15 +68,17 @@ async function getTopClips(clientId, authToken, game, daysBack) {
         }
       });
       const clipsData = await response.json();
-      console.log(clipsData['data'][0])
-      const embedUrls = clipsData.data.map((datum) => datum.embed_url)
+      console.log(clipsData['data'][0]);
+      const embedUrls = clipsData.data.map((datum) => datum.embed_url);
       localStorage.setItem("embedUrls", JSON.stringify(embedUrls));
-      embedUrls.forEach((element, index) => {localStorage.setItem(index, element)})
-      const thumbnailUrls = clipsData.data.map((datum) => datum.thumbnail_url)
-      const titles = clipsData.data.map((datum) => datum.title)
-      const languages = clipsData.data.map((datum) => datum.language)
-      const viewCounts = clipsData.data.map((datum) => datum.view_count)
-      const streamers = clipsData.data.map((datum) => datum.broadcaster_name)
+      embedUrls.forEach((element, index) => {localStorage.setItem(index, element)});
+      const thumbnailUrls = clipsData.data.map((datum) => datum.thumbnail_url);
+      const titles = clipsData.data.map((datum) => datum.title);
+      const languages = clipsData.data.map((datum) => datum.language);
+      const viewCounts = clipsData.data.map((datum) => datum.view_count);
+      const streamers = clipsData.data.map((datum) => datum.broadcaster_name);
+      const creationDateTimes = clipsData.data.map((datum) => datum.created_at);
+      const durations = clipsData.data.map((datum) => datum.duration);
 
       const thumbnailCardsContainer = document.createElement('div');
       thumbnailCardsContainer.className = "thumbnail-cards-container";
@@ -106,11 +108,19 @@ async function getTopClips(clientId, authToken, game, daysBack) {
             const viewCountElement = document.createElement('p');
             viewCountElement.textContent = viewCounts[index].toLocaleString() + " views";
 
+            const durationElement = document.createElement('p');
+            durationElement.textContent = durations[index] + 's';
+
+            const creationDateTimeElement = document.createElement('p');
+            creationDateTimeElement.textContent = creationDateTimes[index];
+
             const thumbnailCard = document.createElement('div');
             thumbnailCard.appendChild(titleElement);
             thumbnailCard.appendChild(thumbnail);
             thumbnailCard.appendChild(streamerElement);
             thumbnailCard.appendChild(viewCountElement);
+            thumbnailCard.appendChild(durationElement);
+            thumbnailCard.appendChild(creationDateTimeElement);
             thumbnailCard.className = "thumbnail-card";
           
             parentElement.appendChild(thumbnailCard);
