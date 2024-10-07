@@ -1,6 +1,6 @@
 // TODO
 // 1. more gametoidconverter
-// 2. refactor into class? to add state, start with just global variables?
+// 2. refactor into class to add state, start with just global variables (for the getUrl)
 // 3.1 clip player - popup? slider on top?
 // 3.2 comments section
 // 4.1 profiles
@@ -22,6 +22,9 @@ gameToIdConverter = {
   "World of Warcraft": "18122",
   "Twitch All categories / multiple categories": "509658"
 }
+
+globalGame = "Just Chatting"
+globalDaysBack = 1
 
 function thumbnailClickListener(index) {
     window.location.href = "test.html?" + "index=" + index;
@@ -128,7 +131,8 @@ for (const timeFrameButton of timeFrameButtons) {
       "30D": 30,
       "ALL": 300
     }
-    getTopClips(clientId, authToken, "Just Chatting", timeFrameTextToDaysBackConverter[timeFrameText]);
+    globalDaysBack = timeFrameTextToDaysBackConverter[timeFrameText]
+    getTopClips(clientId, authToken, globalGame, globalDaysBack);
     
   })
 }
@@ -137,9 +141,9 @@ const categoriesDropDownMenu = document.getElementById('categories-dropdown-menu
 
 categoriesDropDownMenu.addEventListener('change', () => {
   clearThumbnailCardsContainer();
-  const game = categoriesDropDownMenu.options[categoriesDropDownMenu.selectedIndex].text;
+  globalGame = categoriesDropDownMenu.options[categoriesDropDownMenu.selectedIndex].text;
   //console.log(selectedText);
-  getTopClips(clientId, authToken, game, 7);
+  getTopClips(clientId, authToken, globalGame, globalDaysBack);
 });
 
 const heading = document.querySelector('h1');
@@ -147,4 +151,4 @@ heading.addEventListener('click', () => {
     window.location.href = "index.html";
 });
 
-const data = getTopClips(clientId, authToken, "Just Chatting", 3)
+const data = getTopClips(clientId, authToken, globalGame, globalDaysBack)
