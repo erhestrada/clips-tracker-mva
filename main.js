@@ -2,11 +2,15 @@
 // 1. more gametoidconverter | o
 // 2. refactor into class to add state, start with just global variables (for the getUrl) | o
 // need to get streamer image for card
-// 3.1 clip player - popup? slider on top?
+// 3.1 clip player - popup? slider on top? (arrow to next clip? autplay next clip?)
 // 3.2 comments section
 // 4.1 profiles
 // 4.2 likes, dislikes
 // 4.3 follows (channels, clippers), notifications
+
+// what is the user action flow? maybe buttons on the clip player to go same streamer, related streamer,  same category, traverse coherence relations
+// serach by streamer size ~gummy search
+// need more labels to guide thumbnail clicks?
 
 gameToIdConverter = {
   "IRL": "509672",
@@ -41,8 +45,12 @@ function thumbnailClickListener(index, embedUrls) {
     iframe.width = 640;
     iframe.frameBorder = 0;
     iframe.allowFullscreen = true;
-  
+
+    const icon = document.createElement('i')
+    icon.className = "fa-solid fa-arrow-right"
+
     clipPlayer.appendChild(iframe); 
+    clipPlayer.appendChild(icon);
 }
 
 function makeGetUrl(game, daysBack) {
